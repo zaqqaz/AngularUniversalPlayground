@@ -7,9 +7,9 @@ import User from './../../shared/user/user.service';
     template: require('./login.html')
 })
 class LoginComponent {
-    constructor(@Inject(User) private _user:User,
-                @Inject(Router) private _router: Router,
-                @Inject(NgZone) private _zone:NgZone) {
+    constructor(private _user:User,
+                private _router: Router,
+                private _zone:NgZone) {
         console.log('tut');
     }
 
@@ -17,9 +17,9 @@ class LoginComponent {
         this._user.initUser(firstName, lastName);
         
         if(firstName == 'administrator' && lastName == 'administrator') {
-            this._zone.run(() => this._router.navigate(['/admin']));
+            this._router.navigate(['/admin']);
         } else if(!!this._user.isInitialized()) {
-            this._zone.run(() => this._router.navigate(['/test']));
+            this._router.navigate(['/test']);
         }
     }
 }

@@ -19,12 +19,12 @@ export default class TestComponent {
     questions = [];
     currentIndex = 0;
 
-    constructor(@Inject(User) private _user:User,
-                @Inject(Router) private _router: Router,
-                @Inject(NgZone) private _zone:NgZone,
-                @Inject(Http) private _http:Http) {
+    constructor(private _user:User,
+                private _router: Router,
+                private _zone:NgZone,
+                private _http:Http) {
         if(!this._user.isInitialized()) {
-            this._zone.run(() => this._router.navigate(['/login']));
+            this._router.navigate(['/login']);
         } else {
             this._http.get(api + '/questions')
                 .subscribe(result => {

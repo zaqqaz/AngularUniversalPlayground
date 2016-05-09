@@ -32,11 +32,8 @@ export default class AdminComponent {
     };
     result = [];
 
-    constructor(@Inject(Router)
-                private _router:Router,
-                @Inject(NgZone)
+    constructor(private _router:Router,
                 private _zone:NgZone,
-                @Inject(Http)
                 private _http:Http) {
         let currentDay = new Date();
         let lastWeek = new Date();
@@ -54,7 +51,7 @@ export default class AdminComponent {
     }
 
     logout() {
-        this._zone.run(() => this._router.navigate(['/login']));
+        this._router.navigate(['/login']);
     }
 
     show() {
