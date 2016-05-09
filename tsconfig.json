@@ -2,15 +2,17 @@
   "compilerOptions": {
     "module": "commonjs",
     "moduleResolution": "node",
-    "target": "es6",
+    "target": "es5",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": true,
     "declaration": true,
-    "outDir": "/.tmp"
+    "outDir": "/.tmp",
+    "noEmitHelpers": true
   },
   "exclude": [
     "node_modules",
-    "typings"
+    "typings/main",
+    "typings/main.d.ts"
   ]
 }

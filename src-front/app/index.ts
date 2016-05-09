@@ -1,3 +1,10 @@
+// Prefer CoreJS over the polyfills above
+import 'core-js/es6';
+import 'core-js/es7/reflect';
+
+// Typescript emit helpers polyfill
+import 'ts-helpers';
+///
 import 'zone.js/dist/zone-node.js';
 import 'reflect-metadata';
 import { bootstrap } from '@angular/platform-browser-dynamic';
@@ -8,7 +15,14 @@ import {HTTP_PROVIDERS} from '@angular/http';
 import {router} from './router';
 import User from './shared/user/user.service';
 
-//enableProdMode();
+
+//if ('production' === ENV) {
+//    enableProdMode();
+//} else {
+//    // Development
+//    Error.stackTraceLimit = Infinity;
+//    require('zone.js/dist/long-stack-trace-zone');
+//}
 
 @Component({
     selector: 'body',
@@ -27,7 +41,7 @@ import User from './shared/user/user.service';
 })
 @Routes(router.config)
 class AppComponent {
-   constructor(@Inject(Router) router: Router) {
+   constructor(router:Router) {
        console.log('Hello world!');
    }
 }

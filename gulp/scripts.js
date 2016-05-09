@@ -9,14 +9,6 @@ let failPlugin = require('webpack-fail-plugin');
 let $ = require('gulp-load-plugins')();
 
 function webpack(watch, callback) {
-    let babelQuery  = {
-        presets: ['es2015'],
-        plugins: [
-            'transform-runtime',
-            "transform-decorators-legacy",
-            "transform-class-properties"
-        ]
-    };
     let webpackOptions = {
         watch: watch,
         resolve: {
@@ -38,7 +30,7 @@ function webpack(watch, callback) {
                 {
                     test: /\.ts/,
                     exclude: /node_modules/,
-                    loader: 'babel-loader!ts-loader'
+                    loader: 'ts-loader'
                 }
             ]
         },
