@@ -17,9 +17,9 @@ class LoginComponent {
         this._user.initUser(firstName, lastName);
         
         if(firstName == 'administrator' && lastName == 'administrator') {
-            this._zone.run(() => this._router.navigate(['Admin']));
+            this._zone.run(() => this._router.navigate(['/admin']));
         } else if(!!this._user.isInitialized()) {
-            this._zone.run(() => this._router.navigate(['Test']));
+            this._zone.run(() => this._router.navigate(['/test']));
         }
     }
 }

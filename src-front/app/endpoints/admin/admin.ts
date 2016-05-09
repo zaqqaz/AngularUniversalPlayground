@@ -54,7 +54,7 @@ export default class AdminComponent {
     }
 
     logout() {
-        this._zone.run(() => this._router.navigate(['Login']));
+        this._zone.run(() => this._router.navigate(['/login']));
     }
 
     show() {

@@ -24,7 +24,7 @@ export default class TestComponent {
                 @Inject(NgZone) private _zone:NgZone,
                 @Inject(Http) private _http:Http) {
         if(!this._user.isInitialized()) {
-            this._zone.run(() => this._router.navigate(['Login']));
+            this._zone.run(() => this._router.navigate(['/login']));
         } else {
             this._http.get(api + '/questions')
                 .subscribe(result => {

@@ -28,7 +28,7 @@ import User from './shared/user/user.service';
 @Routes(router.config)
 class AppComponent {
    constructor(@Inject(Router) router: Router) {
-       console.log('init');
+       console.log('Hello world!');
    }
 }
 
