@@ -1,0 +1,23 @@
+.tmp
+dist
+bower_components
+config/config.json
+
+# Node
+node_modules
+npm-debug.log
+
+# JetBrains
+.idea
+.project
+.settings
+.idea/*
+*.iml
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Mac
+.DS_Store
+**/.DS_Store

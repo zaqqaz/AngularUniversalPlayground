@@ -1,0 +1,45 @@
+<div class="admin">
+    <h1 class="table__title"></h1>
+
+    <div class="select-date">
+        <div class="wrap">
+            <select (change)="firstDateSelected.date = $event.target.value">
+                <option *ngFor="#i of firstDate.date">{{i}}</option>
+            </select>
+            <select (change)="firstDateSelected.month = $event.target.value">
+                <option *ngFor="#i of firstDate.month">{{i}}</option>
+            </select>
+            <select (change)="firstDateSelected.year = $event.target.value">
+                <option *ngFor="#i of firstDate.year">{{i}}</option>
+            </select>
+        </div>
+        <div class="delimiter"> - </div>
+        <div class="wrap">
+            <select (change)="secondDateSelected.date = $event.target.value">
+                <option *ngFor="#i of secondDate.date">{{i}}</option>
+            </select>
+            <select (change)="secondDateSelected.month = $event.target.value">
+                <option *ngFor="#i of secondDate.month">{{i}}</option>
+            </select>
+            <select (change)="secondDateSelected.year = $event.target.value">
+                <option *ngFor="#i of secondDate.year">{{i}}</option>
+            </select>
+        </div>
+        <div class="btn btn-primary" (click)="show()">Показать</div>
+        <div class="btn download-result" (click)="download()">Скачать файл</div>
+        <div class="btn exit red-block" (click)="logout()">Выйти</div>
+    </div>
+
+    <table class="table" *ngIf="result.length">
+        <tr>
+            <th>Имя Фамилия</th>
+            <th>Дата прохождения теста</th>
+            <th>Оценка</th>
+        </tr>
+        <tr *ngFor="#value of result">
+            <td>{{value.firstName +  ' ' + value.lastName}}</td>
+            <td>{{value.createdAt | date:"dd/MM/yy" }}</td>
+            <td>{{value.score}}</td>
+        </tr>
+    </table>
+</div>

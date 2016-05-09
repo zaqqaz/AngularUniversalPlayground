@@ -1,0 +1,86 @@
+<div class="learning__wrapper test" *ngIf="!started && !finished">
+    <div class="learning__container">
+        <ul class="ok__list">
+            <li class="ok__item">
+                Отслеживайте или отмечайте как понравившиеся любые страницы и профили «Оливарии», Carlsberg Group и всех
+                наших брендов в социальных сетях
+            </li>
+            <li class="ok__item">
+
+                Отмечайте как понравившийся, делитесь или комментируйте любой размещенный на этих страницах контент
+            </li>
+            <li class="ok__item">
+
+                Пользуйтесь официальными хештегами брендов и компании; делитесь информацией о конкурсах
+            </li>
+            <li class="ok__item">Предоставьте ответы на негативные комментарии нашим экспертам: отделу коммуникаций и
+                администраторам официальных страниц
+            </li>
+            <li class="ok__item">Будьте амбассадорами своей компании!</li>
+        </ul>
+        <ul class="notok__list">
+            <li class="notok__item">
+
+                Не раскрывайте конфиденциальную информацию в социальных сетях. Это касается любого контента,
+                размещенного в социальных сетях, в том числе в закрытых группах
+            </li>
+            <li class="notok__item">
+
+                Не размещайте информацию о новых запусках Компании до официальной публикации новости на корпоративном
+                сайте компании
+            </li>
+            <li class="notok__item notok__item_last">Не размещайте информацию, которая может навредить Вашей репутации и
+                репутации Компании
+            </li>
+            <li class="notok__item">Не отвечайте на комментарии и вопросы пользователей от лица Компании или бренда.
+            </li>
+        </ul>
+        <div class="learning__link bttn green-block" (click)="started=true;">Перейти к тесту</div>
+    </div>
+</div>
+<div *ngIf="started && loaded && !finished">
+    <section class="section">
+        <div class="page-numbers"><span class="current-page">{{currentIndex + 1}}</span>/{{questions.length}}</div>
+        <div class="main-content">
+            <h2 class="main-content__title">{{questions[currentIndex].title}}</h2>
+
+            <div class="main-content__container main-content__container_no-float">
+                <div class="container__img-wrapper"><img src="images/block__image/img{{currentIndex + 1}}.jpg" alt="Картинка блока"
+                                                         class="block__img"></div>
+                <p class="container__text">{{questions[currentIndex].description}}</p>
+            </div>
+        </div>
+        <div class="answer" *ngIf="answered">
+            <div class="answer__title">Ответ</div>
+            <p class="incorrect" *ngIf="!correctAnswer">Нет, неверно.</p>
+            <p class="correct" *ngIf="correctAnswer">Да, верно.</p>
+            <p class="answer__text">{{questions[currentIndex].answer}}</p>
+            <form id="answerForm" class="answer__form">
+                <input type="text" name="action" value="get_question" hidden="true">
+
+                <div class="next bttn brown-block" (click)="next();">Далее</div>
+            </form>
+        </div>
+        <div class="question" *ngIf="!answered">
+            <div class="question__title brown-block">Является ли это нарушением политики</div>
+            <form id="questionForm" class="question__form">
+                <input type="text" name="action" value="reply_question" hidden="true">
+                <input type="text" name="id" value="" hidden="true">
+
+                <div (click)="answer(true);" data-answer="true" class="form__bttn bttn brown-block">
+                    Да
+                </div>
+                <div (click)="answer(false);" data-answer="false" class="form__bttn bttn brown-block">
+                    Нет
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+<div *ngIf="finished" class="results__wrapper">
+    <div class="results__container">
+        <h1 class="results__title">Тест пройден</h1>
+        <h2 class="results__sub-title">Ваша общая сумма баллов</h2>
+        <div class="results__count brown-block">{{_user.getUser().score}}</div>
+    </div>
+</div>

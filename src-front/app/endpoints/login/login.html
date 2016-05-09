@@ -1,0 +1,25 @@
+<div class="login__wrapper">
+    <div class="login__container">
+        <h1 class="login__title">Приветствуем вас!<br>Для прохождения теста, <br>просим зарегистрироваться </h1>
+        <div class="login__form">
+            <form (ngSubmit)="auth(firstName.value, lastName.value)">
+                <div class="login__form-row">
+                    <label for="name" class="form__label">Введите своё имя:</label>
+                </div>
+                <div class="login__form-row">
+                    <input type="text" name="name" id="name" class="form__input"
+                           required #firstName>
+                </div>
+                <div class="login__form-row">
+                    <label for="surname" class="form__label">Введите свою фамилию:</label>
+                </div>
+                <div class="login__form-row">
+                    <input type="text"
+                           name="surname" id="surname" class="form__input"
+                           required #lastName>
+                </div>
+                <button type="submit" class="form__submit bttn green-block register">Зарегистрироваться</button>
+            </form>
+        </div>
+    </div>
+</div>
