@@ -1,5 +1,5 @@
 import {Component, NgZone, Inject} from '@angular/core';
-import {Router} from '@angular/router';
+import {Router} from '@angular/router-deprecated';
 import {Http, URLSearchParams} from '@angular/http';
 import {api} from './../../constant';
 

@@ -6,6 +6,6 @@ export const router = {
     config: [
         {path: '/', name: 'Login', component: LoginComponent},
         {path: '/test', name: 'Test', component: TestComponent},
-        {path: '/stats', name: 'Admin', component: AdminComponent},
+        {path: '/stats', name: 'Admin', component: AdminComponent}
     ]
 };

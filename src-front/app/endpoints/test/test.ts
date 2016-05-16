@@ -1,5 +1,5 @@
 import {Component, NgZone, Inject} from '@angular/core';
-import {Router} from '@angular/router';
+import {Router} from '@angular/router-deprecated';
 import {Http, Headers, HTTP_PROVIDERS} from '@angular/http';
 import User from './../../shared/user/user.service';
 import {api} from './../../constant';
@@ -23,15 +23,18 @@ export default class TestComponent {
                 private _router: Router,
                 private _zone:NgZone,
                 private _http:Http) {
-        if(!this._user.isInitialized()) {
-            this._router.navigate(['/login']);
-        } else {
-            this._http.get(api + '/questions')
-                .subscribe(result => {
-                    this.questions = result.json();
-                    this.loaded = true;
-                });
-        }
+
+        console.log('test');
+
+        //if(!this._user.isInitialized()) {
+        //    this._router.navigate(['/login']);
+        //} else {
+        //    this._http.get(api + '/questions')
+        //        .subscribe(result => {
+        //            this.questions = result.json();
+        //            this.loaded = true;
+        //        });
+        //}
     }
 
     answer(_answer) {

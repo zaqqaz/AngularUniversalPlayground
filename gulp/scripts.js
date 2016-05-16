@@ -17,6 +17,14 @@ function webpack(watch, callback) {
         plugins: [
             failPlugin
         ],
+        externals: checkNodeImport,
+        node: {
+            global: true,
+            __dirname: true,
+            __filename: true,
+            process: true,
+            Buffer: true
+        },
         module: {
             loaders: [
                 {
@@ -59,8 +67,8 @@ function webpack(watch, callback) {
             callback();
         }
     };
-
-    return gulp.src(path.join(conf.paths.src, conf.paths.initModule))
+    return gulp.src('src-front/server-render.ts')
+    //return gulp.src(path.join(conf.paths.src, conf.paths.initModule))
         .pipe(webpackStream(webpackOptions, null, webpackChangeHandler))
         .pipe(gulp.dest(path.join(conf.paths.tmp, '/serve/app')));
 }
@@ -72,3 +80,11 @@ gulp.task('scripts', function () {
 gulp.task('scripts:watch', ['scripts'], function (callback) {
     return webpack(true, callback);
 });
+
+// Helpers
+function checkNodeImport(context, request, cb) {
+    if (!path.isAbsolute(request) && request.charAt(0) !== '.') {
+        cb(null, 'commonjs ' + request); return;
+    }
+    cb();
+}
