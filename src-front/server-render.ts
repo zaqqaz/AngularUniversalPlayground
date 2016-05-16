@@ -14,15 +14,15 @@ import User from './app/shared/user/user.service';
 
 // Angular 2 Universal
 import {
-  provide,
-  enableProdMode,
-  expressEngine,
-  REQUEST_URL,
-  ORIGIN_URL,
-  BASE_URL,
-  NODE_ROUTER_PROVIDERS,
-  NODE_HTTP_PROVIDERS,
-  ExpressEngineConfig
+    provide,
+    enableProdMode,
+    expressEngine,
+    REQUEST_URL,
+    ORIGIN_URL,
+    BASE_URL,
+    NODE_ROUTER_PROVIDERS,
+    NODE_HTTP_PROVIDERS,
+    ExpressEngineConfig
 } from 'angular2-universal';
 
 // Application
@@ -40,57 +40,45 @@ app.set('view engine', 'html');
 
 app.use(bodyParser.json());
 
-
-function ngApp(req, res) {
-  let baseUrl = '/';
-  let url = req.originalUrl || '/';
-
-  console.log(url);
-
-  let config: ExpressEngineConfig = {
-    directives: [ App ],
-    platformProviders: [
-      provide(ORIGIN_URL, {useValue: 'http://localhost:3000'}),
-      provide(BASE_URL, {useValue: baseUrl}),
-    ],
-    providers: [
-      provide(REQUEST_URL, {useValue: url}),
-      NODE_ROUTER_PROVIDERS,
-      NODE_HTTP_PROVIDERS,
-      User
-    ],
-    async: true,
-    preboot: {
-      appRoot: 'body',
-      replay: 'hydrate',
-    }
-  };
-
-  res.render('index', config);
-}
-
-function indexFile(req, res) {
-  res.sendFile('/.tmp/serve/index.html', {root: __dirname});
-}
-
 // Serve static files
 app.use(express.static(ROOT, {index: false}));
-
-// Our API for demos only
-app.get('/data.json', (req, res) => {
-  setTimeout(()=> {
-    res.json({
-      data: 'This fake data came from the server. HOW IT WORKS!? '
-    })
-  }, 3000);
-});
-
-// Routes with html5pushstate
 app.use('/', ngApp);
-//app.use('/test', ngApp);
-//app.use('/login', ngApp);
 
 // Server
-app.listen(3000, () => {
-  console.log('Listening on: http://localhost:3000');
+let listener = app.listen(3000, () => {
+    console.log('Listening on: http://localhost:3000');
+});
+
+function ngApp(req, res) {
+    let baseUrl = '/',
+        url = req.originalUrl || '/',
+        config:ExpressEngineConfig = {
+            directives: [App],
+            platformProviders: [
+                provide(ORIGIN_URL, {useValue: ''}),
+                provide(BASE_URL, {useValue: baseUrl}),
+            ],
+            providers: [
+                provide(REQUEST_URL, {useValue: url}),
+                NODE_ROUTER_PROVIDERS,
+                NODE_HTTP_PROVIDERS,
+                User
+            ],
+            async: true,
+            preboot: {
+                appRoot: 'body',
+                replay: 'hydrate',
+            }
+        };
+
+    res.render('index', config);
+}
+
+//  API for demos only
+app.get('/data.json', (req, res) => {
+    setTimeout(()=> {
+        res.json({
+            data: 'This fake data came from the server. HOW IT WORKS!? '
+        })
+    }, 1000);
 });
