@@ -8,7 +8,11 @@ let runSequence = require('run-sequence');
 let $ = require('gulp-load-plugins')({
     pattern: ['gulp-*', 'main-bower-files', 'uglify-save-license', 'del']
 });
-gulp.task('html', ['inject'], () => {
+gulp.task('html', ['inject', 'scripts:server'], () => {
+
+    gulp.src(path.join(conf.paths.tmp, '/server/private/*.js'))
+        .pipe(gulp.dest(path.join(conf.paths.distServer, '/')));
+
     return gulp.src(path.join(conf.paths.tmp, '/serve/*.html'))
         .pipe($.useref())
         // .pipe(gulpif('*.js', $.uglify({preserveComments: $.uglifySaveLicense})).on('error', conf.errorHandler('Uglify')))
@@ -44,7 +48,7 @@ gulp.task('other', () => {
     return gulp.src([
             path.join(conf.paths.src, '/**/*'),
             path.join('!' + conf.paths.app, '/**/*.*'),
-            path.join('!' + conf.paths.src, '/**/*.{html,css,scss}')
+            path.join('!' + conf.paths.src, '/**/*.{html,css,scss,ts}')
         ])
         .pipe(fileFilter)
         .pipe(gulp.dest(path.join(conf.paths.dist, '/')));
@@ -61,5 +65,5 @@ gulp.task('git-build-add', () => {
 
 gulp.task('build', function(callback) {
     $.del(conf.cleanDist.concat([path.join(conf.paths.tmp, '/')]), {force: true});
-    runSequence(['html', 'fonts', 'other'], 'git-build-add', callback);
+    runSequence(['html', 'fonts', 'other'], callback);
 });

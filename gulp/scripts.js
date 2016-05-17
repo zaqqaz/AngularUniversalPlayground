@@ -8,7 +8,9 @@ let $webpack = require("webpack");
 let failPlugin = require('webpack-fail-plugin');
 let $ = require('gulp-load-plugins')();
 
-function webpack(watch, callback) {
+function webpack(watch, callback, server) {
+    let entry = server ? './src-front/server' : './src-front/index';
+
     let webpackOptions = {
         watch: watch,
         resolve: {
@@ -17,7 +19,6 @@ function webpack(watch, callback) {
         plugins: [
             failPlugin
         ],
-        externals: checkNodeImport,
         node: {
             global: true,
             __dirname: true,
@@ -25,6 +26,7 @@ function webpack(watch, callback) {
             process: true,
             Buffer: true
         },
+        entry: entry,
         module: {
             loaders: [
                 {
@@ -49,6 +51,10 @@ function webpack(watch, callback) {
         webpackOptions.devtool = 'inline-source-map';
     }
 
+    if (server) {
+        webpackOptions.externals = checkNodeImport;
+    }
+
     let webpackChangeHandler = function (err, stats) {
         if (err) {
             gutil.log(gutil.colors.red('[' + title + ']'), err.toString());
@@ -67,14 +73,21 @@ function webpack(watch, callback) {
             callback();
         }
     };
-    return gulp.src('src-front/server-render.ts')
-    //return gulp.src(path.join(conf.paths.src, conf.paths.initModule))
+
+    let gulpDest = server ?  gulp.dest(path.join(conf.paths.tmp, '/server/private')):
+        gulp.dest(path.join(conf.paths.tmp, '/serve/app'));
+
+    return gulp.src(server ? path.join(conf.paths.src, conf.paths.server) : path.join(conf.paths.src, conf.paths.initModule))
         .pipe(webpackStream(webpackOptions, null, webpackChangeHandler))
-        .pipe(gulp.dest(path.join(conf.paths.tmp, '/serve/app')));
+        .pipe(gulpDest);
 }
 
 gulp.task('scripts', function () {
     return webpack(false);
+});
+
+gulp.task('scripts:server', function () {
+    return webpack(false, false, true);
 });
 
 gulp.task('scripts:watch', ['scripts'], function (callback) {

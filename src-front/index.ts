@@ -6,10 +6,8 @@ import 'reflect-metadata';
 
 import {bootstrap, enableProdMode,  BROWSER_ROUTER_PROVIDERS, BROWSER_HTTP_PROVIDERS} from 'angular2-universal';
 import {AppComponent} from './app/app';
-import User from './app/shared/user/user.service';
 
 bootstrap(AppComponent, [
     ...BROWSER_ROUTER_PROVIDERS,
     ...BROWSER_HTTP_PROVIDERS,
-    User
 ]);

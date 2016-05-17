@@ -4,12 +4,13 @@ let isAdminSide = (gutil.env.side == 'admin');
 
 exports.paths = {
     initModule: 'index.ts',
+    server: 'server.ts',
     mainStyleFile: 'src-front/app/styles/main.scss',
     src: 'src-front',
     app: 'src-front/app',
-    dist: 'web',
-    tmp: '.tmp',
-    e2e: 'e2e'
+    dist: 'dist/public',
+    distServer: 'dist/private',
+    tmp: '.tmp'
 };
 
 //if (isAdminSide) {
