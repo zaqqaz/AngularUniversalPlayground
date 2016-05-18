@@ -35,8 +35,8 @@ exports.wiredep = {
     directory: 'bower_components'
 };
 
-exports.errorHandler = function (title) {
-    return function (err) {
+exports.errorHandler = (title) => {
+    return (err) => {
         gutil.log(gutil.colors.red('[' + title + ']'), err.toString());
         this.emit('end');
     };

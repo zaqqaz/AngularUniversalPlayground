@@ -4,7 +4,6 @@ let gulp = require('gulp');
 let conf = require('./conf');
 let browserSync = require('browser-sync');
 let webpackStream = require('webpack-stream');
-let $webpack = require("webpack");
 let failPlugin = require('webpack-fail-plugin');
 let $ = require('gulp-load-plugins')();
 
@@ -56,10 +55,6 @@ function webpack(watch, callback, server) {
     }
 
     let webpackChangeHandler = function (err, stats) {
-        if (err) {
-            gutil.log(gutil.colors.red('[' + title + ']'), err.toString());
-            this.emit('end');
-        }
         $.util.log(stats.toString({
             colors: $.util.colors.supportsColor,
             chunks: false,
@@ -78,7 +73,7 @@ function webpack(watch, callback, server) {
         gulp.dest(path.join(conf.paths.tmp, '/serve/app'));
 
     return gulp.src(server ? path.join(conf.paths.src, conf.paths.server) : path.join(conf.paths.src, conf.paths.initModule))
-        .pipe(webpackStream(webpackOptions, null, webpackChangeHandler))
+        .pipe(webpackStream(webpackOptions, null, webpackChangeHandler).on('error', () => conf.errorHandler('Error')))
         .pipe(gulpDest);
 }
 

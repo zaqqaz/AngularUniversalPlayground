@@ -9,7 +9,7 @@ import User from './../../shared/user/user.service';
 class LoginComponent {
     constructor(private _router: Router,
                 private _zone:NgZone) {
-        console.log('tut');
+        console.log('tut-');
     }
 
     auth(firstName:string, lastName:string) {
